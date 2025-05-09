@@ -1,0 +1,120 @@
+Code Contents
+
+**HTML**
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>3D Grill with Flipping Burger</title>
+</head>
+<body>
+    <div class="container">
+        <div class="grill">
+            <div class="burger" id="burger"></div>
+            <div class="message" id="message"></div>
+        </div>
+    </div>
+    <button id="flipButton">Flip Burger</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+-------------------------------------------------------------
+ 
+**CSS**
+      
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+.container {
+    perspective: 1500px; /* Add perspective for 3D effect */
+}
+
+.grill {
+    width: 320px;
+    height: 160px;
+    background-color: #333;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.burger {
+    width: 95px;
+    height: 35px;
+    background-color: #d2691e; /* Burger patty color */
+    border-radius: 5px;
+    position: absolute;
+    left: 115px;
+    bottom: 10px; /* Adjust position to rest on the grill */
+    transform-origin: center; /* For 3D rotation */
+    transition: transform 0.6s, background-color 0.3s;
+}
+
+.burger.flip {
+    transform: rotateX(180deg);
+    background-color: #8b4513; /* Darker color when flipped */
+}
+
+.message {
+    position: absolute;
+    bottom: 80px;
+    left: 55%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-family: Sans-serif;
+    color: white;
+    opacity: 0; /* Keep it hidden until burger is flipped */
+    transition: opacity 0.5s ease;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #008B8B;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #B22222;
+}
+
+-------------------------------------------------------------------
+
+**Javascript**
+  
+  const burger = document.getElementById('burger');
+const flipButton = document.getElementById('flipButton');
+const message = document.getElementById('message');
+
+flipButton.addEventListener('click', () => {
+    // Toggle the 'flip' class to rotate the burger
+    burger.classList.toggle('flip');
+
+    // When flipped, show the done message
+    if (burger.classList.contains('flip')) {
+        message.textContent = 'The burger is done!';
+        message.style.opacity = '1'; // Show the message
+    } else {
+        message.textContent = '';
+        message.style.opacity = '0'; // Hide the message
+    }
+});
+  
